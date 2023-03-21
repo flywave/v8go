@@ -200,6 +200,7 @@ extern ValuePtr NewValueUndefined(IsolatePtr iso_ptr);
 extern ValuePtr NewValueInteger(IsolatePtr iso_ptr, int32_t v);
 extern ValuePtr NewValueIntegerFromUnsigned(IsolatePtr iso_ptr, uint32_t v);
 extern RtnValue NewValueString(IsolatePtr iso_ptr, const char* v, int v_length);
+extern ValuePtr NewValueUint8Array(IsolatePtr iso_ptr, const uint8_t* v, int len);
 extern ValuePtr NewValueBoolean(IsolatePtr iso_ptr, int v);
 extern ValuePtr NewValueNumber(IsolatePtr iso_ptr, double v);
 extern ValuePtr NewValueBigInt(IsolatePtr iso_ptr, int64_t v);
@@ -210,6 +211,8 @@ extern RtnValue NewValueBigIntFromWords(IsolatePtr iso_ptr,
                                         const uint64_t* words);
 void ValueRelease(ValuePtr ptr);
 extern RtnString ValueToString(ValuePtr ptr);
+extern uint8_t* ValueToUint8Array(ValuePtr ptr);
+extern uint64_t ValueToArrayLength(ValuePtr ptr);
 const uint32_t* ValueToArrayIndex(ValuePtr ptr);
 int ValueToBoolean(ValuePtr ptr);
 int32_t ValueToInt32(ValuePtr ptr);
@@ -274,6 +277,7 @@ int ValueIsSharedArrayBuffer(ValuePtr ptr);
 int ValueIsProxy(ValuePtr ptr);
 int ValueIsWasmModuleObject(ValuePtr ptr);
 int ValueIsModuleNamespaceObject(ValuePtr ptr);
+size_t CopyArrayBufferViewContent(ValuePtr ptr, void *dest);
 
 extern void ObjectSet(ValuePtr ptr, const char* key, ValuePtr val_ptr);
 extern void ObjectSetIdx(ValuePtr ptr, uint32_t idx, ValuePtr val_ptr);
