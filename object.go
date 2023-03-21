@@ -36,7 +36,7 @@ func (o *Object) MethodCall(methodName string, args ...Valuer) (*Value, error) {
 
 func coerceValue(iso *Isolate, val interface{}) (*Value, error) {
 	switch v := val.(type) {
-	case string, int32, uint32, int64, uint64, float64, bool, *big.Int:
+	case string, int32, uint32, int64, uint64, float64, bool, *big.Int, []byte:
 		// ignoring error as code cannot reach the error state as we are already
 		// validating the new value types in this case statement
 		value, _ := NewValue(iso, v)
